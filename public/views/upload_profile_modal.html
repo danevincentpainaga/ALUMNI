@@ -1,0 +1,27 @@
+<div class="modal" id="updateProfile" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"  style="background-image: url('images/friends_bg.jpg'); height: 175px;" >
+        <h4 class="modal-title white">
+          Edit Photo
+        </h4>
+      </div>
+    
+      <div class="modal-body" >
+        <div class="row">
+          <div class="col photo" >
+            <img ng-src="{{modalImage | checkPostPhoto}}" id="p_pic" style="height: 142px;z-index: 1;position: absolute;top:-80px;width: 141px;border: solid 3px white; border-radius: 6em; min-width: 141px; max-height: 142px;">
+                    <input type="file" id="file1" name="file"
+            ng-files="getTheFiles($files)" style="position: relative;left: 12em;"/>
+            <!-- <input type="file" file-model = "myFile" style="position: relative;left: 12em;"> -->
+                  <!-- <input type="file" ng-file-select="onFileSelect($files)" ng-model="imageSrc" style="position: relative;left: 12em;" name="file" multiple> -->
+            <br />
+            <br />
+            <button class="btn btn-secondary btn-sm float-right left-2" data-dismiss="modal" ng-click="cancelUpload()">Close</button>
+            <button class="btn btn-info btn-sm float-right" ng-click="uploadFile()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

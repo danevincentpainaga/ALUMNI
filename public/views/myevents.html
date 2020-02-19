@@ -1,0 +1,95 @@
+<div class="col-md-5 padding-0" >
+  <div class="col-md-12 profile-sticky" >
+    <ul class="list-group ">
+       <li class="list-group-item font padding-7 side-border whitesmoke">
+          <span>About</span>
+        </li>
+        <li class="list-group-item font padding-7" ng-if="admin_granted">
+          <img src="images/responsive.svg" style="max-width:20px; ">
+          &nbsp;
+          <a href="#!/admin">
+            Administrator
+          </a>
+        </li>
+        <li class="list-group-item font padding-7">
+          <img src="images/shield.svg" style="max-width:20px; ">
+          &nbsp;
+          <a href="#!/security?stud={{accountName}}">
+            Security
+          </a>
+        </li>
+        <li class="list-group-item font padding-7">
+          <img src="images/add.svg" style="max-width:20px; ">
+          &nbsp;
+          <a href="#">
+            Saved events
+          </a>
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col-md-12 center" >
+          <hr>
+        </div>
+        <div class="col-md-12">
+          <ul class="list-group" >
+            <li class="list-group-item font padding-10 whitesmoke" style="border-bottom: solid 2px #4bb9d2; ">
+              <span>Info</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center font padding-7">
+              Year Graduated
+              <span class="badge badge-primary badge-pill">2014</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center font padding-7">
+              Employment Status
+              <span class="badge badge-success badge-pill">Employed</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-12 top_1em">
+          <ul class="list-group" >
+            <li class="list-group-item side-border font" style="border-bottom: solid 1px #d6d6d6;height: 20px;border-radius: 2px !important;">
+            </li>
+            <li class="list-group-item font padding-7">
+              <select class="custom-select custom-select-sm" ng-model="m.event_status" ng-change="m.selectedStatus(m.event_status)">
+                <option ng-repeat="s in m.statuses" value="{{s}}">{{s}}</option>
+              </select>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  <br />
+</div>
+<div class="col-md-7">
+    <div class="row">
+      <div class="col">
+        <ul class="list-group" >
+          <li class="list-group-item side-border font" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+            <span class="custom-span">My events</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 1em;"  ng-repeat="event in m.events">
+        <div class="col-md-12">
+          <update-post-event event="event"></update-post-event>                      
+        </div>
+    </div>
+    <div class="row top_point3" ng-if="m.empty_post">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <img src="images/info.png" width="30">
+            &nbsp;
+            {{m.response_message}}
+          </div>
+        </div>
+        <div class="card top_point3">
+          <div class="card-body">
+            <img src="images/web.gif" width="465">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+</div>

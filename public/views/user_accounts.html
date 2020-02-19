@@ -1,0 +1,49 @@
+<div class="container-fluid padding-0" ng-controller="userAccountsCtrl as u">
+	<div class="row">
+		<div class="col top_point3">
+	  	<ul class="list-group list-group-flush">
+		  <li class="list-group-item bg-dark padding-10">
+		  	<div class="row">	
+			  	<div class="col-md-8"></div>
+		  		<div class="col-md-4">
+		  			<input type="text" class="form-control form-control-sm">
+		  		</div>
+		  	</div>
+		  </li>
+		  <li class="list-group-item padding-0 top_point3" >
+			  <table class="table table-bordered table-hover table-sm">
+			    <thead class="thead-dark">
+			      <tr>
+			      	<th class="center">Student ID NO.</th>
+			        <th>Email</th>
+			        <th>Name</th>
+			        <th>Department</th>
+			        <th class="center">Status</th>
+			        <th class="center" >Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="user in u.users_list">
+			      	<td class="center">{{ user.student_id_number }}</td>
+		            <td>{{ user.email }}</td>
+		            <td>{{ user.lastname }}&nbsp;{{ user.firstname }}&nbsp;{{ user.middlename }}</td>
+		            <td>{{ user.department_name }}</td>
+		            <td class="center">
+		            	<label user-status status="{{ user.user_status }}">
+		            		{{ user.user_status }}
+		            	</label>
+	            	</td>
+		            <td class="center">
+		              <button class="btn btn-info btn-sm" type="button" ng-click="u.updateUser(user)" data-toggle="modal" data-target="#updateUserModal"  data-backdrop="static" data-keyboard="false">
+		                <i class="fa fa-pen"></i>
+		              </button>
+		            </td>
+			      </tr>
+			      <tr>
+			    </tbody>
+			  </table>
+		  </li>
+		</ul>  			
+		</div>
+	</div>
+</div>

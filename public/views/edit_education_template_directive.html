@@ -1,0 +1,34 @@
+<div class="dropdown float-right" ng-if="!ec.education_editing">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+  </a>
+  <div class="dropdown-menu" >
+    <a href="" class="dropdown-item arrow" ng-click="ec.editEducation(education)">
+      <i class="fa fa-pen"></i>&nbsp;Edit
+    </a>
+    <a class="dropdown-item" href="" ng-click="ec.removeEducation(education)">
+      <i class="fa fa-trash "></i>&nbsp;Delete
+    </a>
+  </div>
+</div>
+<p ng-if="!ec.education_editing">
+<span>Course</span>:&nbsp;{{education.degree}}
+<br />
+<span>School</span>:&nbsp;{{education.school}}
+<br />
+<span>Year Graduated - </span>:&nbsp;{{education.year_graduated}}
+<br />
+</p>
+<form ng-if="ec.education_editing">
+	<label>Course</label>	
+	<input type="text" class="form-control form-control-sm" ng-model="ec.degree">
+	<label>School</label>
+	<input type="text" class="form-control form-control-sm" ng-model="ec.school">
+	<label>Year Graduated</label>
+	<input type="text" class="form-control form-control-sm" ng-model="ec.year_graduated">
+	<br />
+	<button class="btn btn-info btn-sm"  ng-click="ec.updateEducation()" >
+		<i class="fa fa-spinner fa-spin font-17px" ng-if="ec.updating_name_address"></i>
+		{{ec.update_status}}
+	</button>
+	<button class="btn btn-secondary btn-sm" ng-click="ec.cancelEditing()" >Cancel</button>
+</form>

@@ -1,0 +1,124 @@
+<div class="container-fluid padding-2" ng-controller="manageEventsCtrl as me">
+	<div class="row top_point5">
+		<div class="col-md-5">
+		  <li class="list-group-item padding-5 site-theme white">
+		  	<i class="fa fa-calendar-week"></i>
+		  	&nbsp;Event Type
+		  </li>		
+		  <li class="list-group-item padding-5">
+	        <select class="custom-select custom-select-sm" ng-model="me.selectedevent" ng-change="me.eventSelected()">
+	          <option value="">Filter</option>
+	          <option value="Job Opportunities">Job Opportunities</option>
+	          <option value="Announcement/Events">Announcement/Events</option>
+	        </select>
+		  </li>
+		  <li class="list-group-item top_point5 padding-5" ng-if="me.eventTypeSelected">
+		  	<i class="fa fa-user"></i>
+		  	&nbsp;Fullname
+		  </li>			
+		  <li class="list-group-item padding-5" ng-if="me.eventTypeSelected">
+		  	<input type="text" class="form-control form-control-sm" ng-model="me.alumni_name">
+		  </li>
+		  <br />
+		  <li class="list-group-item padding-5">
+		  	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addEventsModal">
+		  	<i class="fa fa-plus"></i>
+		  		Add Event
+		  	</button>
+		  </li>
+		  <br />	
+		  <li class="list-group-item padding-2" ng-if="me.editing">
+		  	<div class="card padding-0">
+		  		<div class="card-body padding-5">
+		          <form>
+		            <div class="form-group">
+		              <label for="eventType">Email address:</label>
+		              <select class="custom-select" ng-model="me.event_type">
+		                <option value="Job Opportunities">Job Opportunities</option>
+		                <option value="Announcement/Events">Announcement/Events</option>
+		              </select>
+		            </div>
+		            <div class="form-group">
+		            <input class="form-control"
+		                   ng-model="me.eventdate"
+		                   ng-model-options="{ updateOn: 'blur' }"
+		                   placeholder="Select a date..."
+		                   moment-picker="me.eventdate" />
+		            </div>
+		            <div class="form-group">
+		              <label for="event_message">Post:</label>
+		              <textarea class="form-control" rows="2" id="event_message" name="text" placeholder="Post events here..." ng-model="me.event_message"></textarea>
+		            </div>
+		            <div class="col padding-0">
+		              <button type="submit" class="btn btn-primary btn-sm" ng-click="me.updateEvent()">
+		              	<i class="fa fa-save"></i>
+		              		{{me.update_status}}
+		              </button>
+		              <button type="button" class="btn btn-danger btn-sm" ng-click="me.cancelEditing()">
+		              	<i class="fa fa-times-circle"></i>
+		              		Cancel
+		              </button>
+		            </div>  
+		          </form>
+		  		</div>
+		  	</div>
+		  </li>
+		</div>
+		<div class="col-md-7" style="overflow-y: auto; max-height: 550px;">
+		  	<ul class="list-group list-group-flush" style="border: solid 1px #d6d6d6;">
+			  <li class="list-group-item" >
+			  	<div class="row" >
+			        <div class="col-md-12 padding-2" ng-repeat="event in me.events">
+			           <div class="card">
+			            <div class="card-body padding-0">
+			              <div class="col" style="margin-top: 1em;">
+			                <div class="row">
+			                  <div style="width: 70px;padding-left: 1em;">
+		                        <img ng-src="uploads/{{event.photo | checkPhoto}}" class="event-post-profile-pic">
+			                  </div>  
+			                  <div class="col-md-10 padding-0">
+			                    <div class="row">
+			                      <div class="col-md-12">
+			                        <a href="#" class="blue text-deco-none">
+			                          {{event.firstname}}&nbsp;{{event.middlename}}&nbsp;{{event.lastname}}
+			                        </a>
+			                      </div>
+			                      <div class="col-md-12">
+			                        <span class="font-13">{{event.date_posted}}</span>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			              </div>
+			              <div class="col" style="margin-top: .5em;margin-bottom: 2em;">
+			              <hr>
+			              <h6><span class="badge badge-success" event-type etype="{{event.event_type}}">{{event.event_type}}</span></h6>
+			              <p class="bold font-11">{{event.event_datetime | formatedDate}}</p>
+			              <p>
+			                {{event.event_message}}
+			              </p>
+			              </div>
+			            </div> 
+			            <div class="card-footer padding-5 bg-white">
+			              <div class="row">
+			                <div class="col event-btn">
+			                  <button class="btn btn-danger btn-sm float-right" ng-click="me.removeEvent(event)">
+			                    <i class="fa fa-trash"></i>
+			                  </button>
+			                  <button class="btn btn-primary btn-sm float-right" ng-click="me.editEvent(event)">
+			                    <i class="fa fa-pen"></i>
+			                  </button>	
+			                  <button class="btn btn-success btn-sm float-right" ng-if="event.event_status === 'pending'" ng-click="me.approvedEvents(event)">
+			                    <i class="fa fa-thumbs-up"></i>
+			                  </button>	                  
+			                </div>
+			              </div>
+			            </div>
+			          </div>                                   
+			        </div>		  	
+			  	</div>
+			  </li>
+			</ul>  			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+<div class="row bg-dark" ng-style="style()" resize>
+  <div class="col-sm-2 padding-0" style="border-right: solid 2px #d6d6d6;">
+  	<ul class="list-group admin-menu" >
+	  <li class="list-group-item center" style="height: 157px;">
+	  	<a href="#!/account/{{accountName}}">
+	  	<img src="uploads/user_event.jpg" style="height: 95px;border-radius: 4em;position: relative;top: 5px;">
+	  	<br />
+	  	</a>
+	  	<h5 class="top_point5">Admin</h5>
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin')}" ng-click="navigate('/admin')">
+	  	<i class="fa fa-bars custom-list"></i>&nbsp;&nbsp;Dashboard
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin/manage_alumni')}" ng-click="navigate('/admin/manage_alumni')">
+	  	<i class="fa fa-users"></i>&nbsp;&nbsp;Manage Alumni
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin/manage_events')}" ng-click="navigate('/admin/manage_events')">
+	  	<i class="fa fa-calendar"></i>&nbsp;&nbsp;Manage Events
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin/user_accounts')}" ng-click="navigate('/admin/user_accounts')">
+	  	<i class="fa fa-cogs"></i>&nbsp;&nbsp;User Accounts
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin/departments')}" ng-click="navigate('/admin/departments')">
+	  	<i class="fa fa-building"></i>&nbsp;&nbsp;Departments
+	  </li>
+	  <li class="list-group-item cursor" ng-class="{activated:isActivated('/admin/courses')}" ng-click="navigate('/admin/courses')">
+	  	<i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;Course
+	  </li>
+	</ul>
+  </div>
+  <div class="col-md-10 whitesmoke" ui-view="dashboard-view" ></div>
+</div>

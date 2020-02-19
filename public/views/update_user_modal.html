@@ -1,0 +1,57 @@
+<div class="modal" id="updateUserModal" ng-controller="updateUsersCtrl as uc">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header site-theme white">
+        <h4 class="modal-title">Update User</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+    <form ng-submit="uc.updateUserDetails()">
+      <div class="modal-body">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <h4>{{uc.alumni_name}}</h4>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="u_department">Department</label>
+                    <select  class="form-control form-control-sm" id="u_department" ng-model="uc.selectedDepartment" ng-options="department as department.department_name for department in uc.departments track by department.department_name" >
+                    </select>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="u_course">Course.</label>
+                    <select  class="form-control form-control-sm" id="u_course" ng-model="uc.selectedCourse" ng-options="course as course.course_name for course in uc.courses track by course.course_name" >
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="u_status">Status</label>
+                    <select  class="form-control form-control-sm" id="u_status" name="u_status" ng-model="uc.user_status">
+                      <option value="Activated">Activated</option>
+                      <option value="De-Activated">De-Activated</option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary ">
+          <i class="fa fa-save"></i>&nbsp;Save
+        </button>  
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

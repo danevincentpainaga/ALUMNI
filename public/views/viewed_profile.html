@@ -1,0 +1,155 @@
+<div class="col-md-4 padding-0" >
+	<div class="col-md-12 profile-sticky" >
+		<ul class="list-group nav nav-tabs" role="tablist">
+			<li class="list-group-item font side-border whitesmoke">
+				<i class="fa fa-newspaper site-color"></i>
+			</li>
+			<li class="list-group-item nav-item padding-2">
+			  <a class="nav-link active" data-toggle="tab" data-target="#aboutme">
+			  	<i class="fa fa-user-tie"></i>&nbsp;&nbsp;&nbsp;Profile
+			  </a>
+			</li>
+			<li class="list-group-item nav-item padding-2">
+			  <a class="nav-link font" data-toggle="tab" data-target="#experience">
+			  	<i class="fa fa-hammer"></i>&nbsp;&nbsp;&nbsp;Work Experience
+			  </a>
+			</li>
+			<li class="list-group-item nav-item padding-2">
+			  <a class="nav-link" data-toggle="tab" data-target="#education">
+			  	<i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;&nbsp;Education
+			  </a>
+			</li>
+			<br />
+			<li class="list-group-item font side-border whitesmoke">
+				<i class="fa fa-folder-open site-color"></i>
+			</li>
+			<li class="list-group-item nav-item padding-2">
+			  <a class="nav-link" data-toggle="tab" data-target="#business">
+			  	<i class="fa fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;Business
+			  </a>
+			</li>
+		</ul>
+	</div>
+	<br />
+</div>
+<div class="col-md-8 padding-left-0">
+  <div class="tab-content" ng-repeat="p in _vp.viewed_profile">
+    <ul class="list-group" >
+		<li class="list-group-item side-border font site-color" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+			<i class="fa fa-map-marker-alt"></i>
+		</li>
+    </ul>
+    <div id="aboutme" class="container tab-pane active padding-0 top_point3">
+	     <ul class="list-group" >
+			<li class="list-group-item font" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<div class="col padding-0" ng-if="!pc.editing_profilename">
+					Name: <span>{{p.firstname}}&nbsp;{{p.middlename}}&nbsp;{{p.lastname}}</span>
+					<br />
+					Address: <span>{{p.address}}</span>
+				</div>
+			</li>
+			<li class="list-group-item top_point3">
+				<div class="col padding-0" ng-if="!pc.editing_profile">
+					<span>Contact: {{p.contact_no}}</span>
+					<br />
+					<span>Gender: {{p.gender}}</span>
+					<br />
+					<span>Date of Birth: {{p.birthdate}}</span>
+					<br /> 
+					<span >Permanent Address: {{p.permanent_address}}</span>
+					<br />
+				</div>
+			</li>
+			<li class="list-group-item font top_1em site-color" style="border-bottom: solid 1px #d6d6d6;height: 47px;border-radius: 2px !important;">
+				<i class="fa fa-briefcase"></i>&nbsp;Works at
+			</li>
+			<li class="list-group-item font" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<div class="col padding-0" ng-if="!pc.editing_job">
+					Company:&nbsp;
+					<span>{{p.company | status }}</span>
+					<br />
+					Position:&nbsp;
+					<span>{{p.job | status }}</span>
+				</div>
+			</li>
+			<li class="list-group-item font top_1em site-color" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<i class="fa fa-user-graduate"></i>&nbsp;Graduated at the University of antique
+			</li>
+			<li class="list-group-item font" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<span>{{p.course_name}}</span>
+				<br />
+				<span>{{p.department_name}} Department</span>
+				<br />
+				Year - <span>{{p.year_graduated}}</span>
+				<br />
+			</li>
+			<br />
+			<li class="list-group-item font side-border site-color" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<i class="fa fa-users-cog"></i>&nbsp;Skills
+			</li>
+			<li class="list-group-item" ng-repeat="s in _vp.skills">
+				{{s.skills}}
+			</li>
+			<li class="list-group-item" ng-if="_vp.emptySkills">
+				No Skills added.
+			</li>
+			<br />
+	    </ul>
+    </div>
+    <div id="experience" class="container tab-pane fade padding-0 top_point3">
+	     <ul class="list-group" >
+			<li class="list-group-item font top_1em site-color" style="border-bottom: solid 1px #d6d6d6;height: 47px;border-radius: 2px !important;">
+				<i class="fa fa-briefcase"></i>&nbsp;Experience
+			</li>
+			<li class="list-group-item font bottom_point1" >
+				Company:&nbsp;{{p.company}}
+				<br />
+				Position:&nbsp;{{p.job}}
+			</li>
+			<li class="list-group-item font bottom_point1" ng-repeat="w in _vp.work_experiences">	
+				Company:&nbsp;{{w.w_company_name}}
+				<br />
+				Position:&nbsp;{{w.w_position}}
+			</li>
+	    </ul>
+    </div>
+    <div id="education" class="container tab-pane fade padding-0 top_point3">
+	     <ul class="list-group" >
+			<li class="list-group-item font" style="border-bottom: solid 1px #d6d6d6;border-radius: 2px !important;">
+				<span>Course</span>:&nbsp;<span>{{p.course_name}}</span>
+				<br />
+				<span>School</span>:&nbsp;<span>{{p.department_name}} Department</span>
+				<br />
+				<span>Year Graduated - </span>:&nbsp;<span>{{p.year_graduated}}</span>
+				<br />
+			</li>
+	     	<li class="list-group-item font bottom_point1" ng-repeat="e in _vc.educations">			
+			<span>Course</span>:&nbsp;{{e.degree}}
+			<br />
+			<span>School</span>:&nbsp;{{e.school}}
+			<br />
+			<span>Year Graduated - </span>:&nbsp;{{e.year_graduated}}
+			</li>
+	    </ul>
+    </div>
+    <div id="job" class="container tab-pane fade padding-0 top_point3">
+	     <ul class="list-group" >
+			<li class="list-group-item font" style="border-bottom: solid 1px #d6d6d6;height: 47px;border-radius: 2px !important;">
+				Job
+			</li>
+	    </ul>
+    </div>
+    <div id="business" class="container tab-pane fade padding-0 top_point3">
+	    <ul class="list-group" >
+			<li class="list-group-item font side-border site-color" >
+				<i class="fa fa-briefcase"></i>&nbsp;Businesses
+			</li>
+			<li class="list-group-item font" ng-repeat="b in _vp.businesses">
+				<span>Owner of</span>
+				<br />
+				{{b.business_name}}
+			</li>
+	    </ul>
+    </div>
+  </div>
+</div>

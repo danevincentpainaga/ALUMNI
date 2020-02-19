@@ -1,0 +1,120 @@
+<div class="modal" id="addAdminModal" ng-controller="addAdminModalCtrl as am">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header site-theme white">
+        <h4 class="modal-title">Add Admin</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+    <form ng-submit="am.saveAdminDetails()">
+      <div class="modal-body">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_lastname">Lastname</label>
+                  <input type="text" class="form-control form-control-sm" id="a_lastname" ng-model="am.alumni.lastname">
+                </div>                
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_firstname">Firstname:</label>
+                  <input type="text" class="form-control form-control-sm" id="a_firstname" ng-model="am.alumni.firstname">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_middlename">Middlename</label>
+                  <input type="text" class="form-control form-control-sm" id="a_middlename" ng-model="am.alumni.middlename">
+                </div> 
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="a_student_id_number">Valid ID.</label>
+                  <input type="text" class="form-control form-control-sm" id="a_student_id_number" ng-model="am.alumni.student_id_number">
+                </div>  
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="a_email">Email</label>
+                  <input type="email" class="form-control form-control-sm" id="a_email" ng-model="am.alumni.email">
+                </div> 
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="year_graduated">Year Graduated</label>
+                  <input type="text" class="form-control form-control-sm" id="year_graduated" ng-model="am.alumni.year_graduated">
+                </div>  
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="department">Department:</label>
+                  <select  class="form-control form-control-sm" id="department" name="department" ng-model="am.selectedDepartment" ng-options="department as department.department_name for department in am.departments track by department.department_name " required>
+                  </select>
+                </div>   
+              </div>
+            </div>
+            <hr>
+              <div class="row">
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label for="course">Course/Designation:</label>
+                    <select  class="form-control form-control-sm" id="course" name="course" ng-model="am.selectedCourse" ng-options="course as course.course_name for course in am.courses track by course.course_name " required>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="section">Section:</label>
+                    <select  class="form-control form-control-sm" id="section" name="section" ng-model="am.section" required>
+                      <option ng-repeat="s in am.section_list">{{s}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select  class="form-control form-control-sm" id="gender" name="gender" ng-model="am.gender">
+                      <option value=""></option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>             
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label for="a_contact_no">Contact No.</label>
+                    <input type="text" class="form-control form-control-sm" id="a_contact_no" ng-model="am.alumni.contact_no">
+                  </div>
+                  <div class="form-group">
+                  <label for="a_birthdate">Birthdate:</label>
+                    <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                        <input type="text" class="form-control form-control-sm" id="a_birthdate" name="a_birthdate" ng-model="am.alumni.birthdate" required>
+                    </datepicker>
+                  </div>                                         
+                </div>
+                <div class="col-md-4 col-sm-12">                      
+                  <div class="form-group">
+                    <label for="a_address">Address</label>
+                    <input type="text" class="form-control form-control-sm" id="a_address" ng-model="am.alumni.address">
+                  </div>
+                  <div class="form-group">
+                    <label for="a_permanent_address">Permanent Adddress</label>
+                    <input type="text" class="form-control form-control-sm" id="a_permanent_address" ng-model="am.alumni.permanent_address">
+                  </div>    
+                </div>
+              </div>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" ng-disabled="am.saving">
+            <i class="fa fa-save"></i>&nbsp;{{am.save_status}}
+          </button>  
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

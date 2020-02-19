@@ -1,0 +1,127 @@
+<div class="modal" id="addAlumniModal" ng-controller="alumniModalCtrl as ac">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header site-theme white">
+        <h4 class="modal-title">Add Alumni</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+    <form ng-submit="ac.saveAlumniDetails()">
+      <div class="modal-body">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_lastname">Lastname</label>
+                  <input type="text" class="form-control form-control-sm" id="a_lastname" ng-model="ac.alumni.lastname">
+                </div>                
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_firstname">Firstname:</label>
+                  <input type="text" class="form-control form-control-sm" id="a_firstname" ng-model="ac.alumni.firstname">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="a_middlename">Middlename</label>
+                  <input type="text" class="form-control form-control-sm" id="a_middlename" ng-model="ac.alumni.middlename">
+                </div> 
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="a_student_id_number">Studen ID NO.</label>
+                  <input type="text" class="form-control form-control-sm" id="a_student_id_number" ng-model="ac.alumni.student_id_number">
+                </div>  
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="a_email">Email</label>
+                  <input type="email" class="form-control form-control-sm" id="a_email" ng-model="ac.alumni.email">
+                </div> 
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="year_graduated">Year Graduated</label>
+                  <input type="text" class="form-control form-control-sm" id="year_graduated" ng-model="ac.alumni.year_graduated">
+                </div>  
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                  <label for="department">Department:</label>
+                  <select  class="form-control form-control-sm" id="department" name="department" ng-model="ac.selectedDepartment" ng-options="department as department.department_name for department in ac.departments track by department.department_name " required>
+                  </select>
+                </div>   
+              </div>
+            </div>
+            <hr>
+              <div class="row">
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label for="course">Course:</label>
+                    <select  class="form-control form-control-sm" id="course" name="course" ng-model="ac.selectedCourse" ng-options="course as course.course_name for course in ac.courses track by course.course_name " required>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="section">Section:</label>
+                    <select  class="form-control form-control-sm" id="section" name="section" ng-model="ac.section" required>
+                      <option ng-repeat="s in ac.section_list">{{s}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select  class="form-control form-control-sm" id="gender" name="gender" ng-model="ac.gender">
+                      <option value=""></option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>             
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label for="a_contact_no">Contact No.</label>
+                    <input type="text" class="form-control form-control-sm" id="a_contact_no" ng-model="ac.alumni.contact_no">
+                  </div>
+                  <div class="form-group">
+                  <label for="birthdate">Birthdate:</label>
+                    <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                        <input type="text" class="form-control form-control-sm" id="birthdate" name="birthdate" ng-model="ac.birthdate" required>
+                    </datepicker>
+                  </div>
+                  <div class="form-group">
+                    <label for="user_type" class="top_1em">User Type:</label>
+                    <select  class="form-control form-control-sm" id="user_type" name="usertype" ng-model="ac.user_type" required>
+                      <option value="admin">admin</option>
+                      <option value="user">user</option>
+                    </select>
+                  </div>                                     
+                </div>
+                <div class="col-md-4 col-sm-12">                      
+                  <div class="form-group">
+                    <label for="a_address">Address</label>
+                    <input type="text" class="form-control form-control-sm" id="a_address" ng-model="ac.alumni.address">
+                  </div>
+                  <div class="form-group">
+                    <label for="a_permanent_address">Permanent Adddress</label>
+                    <input type="text" class="form-control form-control-sm" id="a_permanent_address" ng-model="ac.alumni.permanent_address">
+                  </div>    
+                </div>
+              </div>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" ng-disabled="ac.saving">
+            <i class="fa fa-save"></i>&nbsp;{{ac.save_status}}
+          </button>  
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

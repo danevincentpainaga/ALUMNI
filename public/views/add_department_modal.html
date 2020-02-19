@@ -1,0 +1,36 @@
+<div class="modal" id="addDepartmentModal" ng-controller="addDepartmentCtrl as ad">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header site-theme" >
+        <h4 class="modal-title white">
+          <i class="fa fa-building"></i>&nbsp;Add Department
+        </h4>
+      </div>
+    
+      <div class="modal-body" >
+        <form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-11 padding-right-0">
+                <input type="text" class="form-control text-uppercase" id="department" ng-model="ad.department" placeholder="Enter department name" ng-class="ad.passedOrFail == null? 'default' : (ad.passedOrFail)? 'passed' : 'failed'">
+              </div>
+              <div class="col-md-1 padding-right-0 padding-left-0">
+                <i class="fa fa-check-circle success-info" ng-show="ad.success"></i>
+                <i class="fa fa-times-circle failed-info" ng-show="ad.fail"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer padding-5">
+          <button type="button" class="btn btn-success btn-sm" ng-click="ad.addDepartment(ad.department)" ng-disabled="ad.disableSave">
+            <i class="fa fa-save"></i>&nbsp;Save
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="ad.closeModal()">
+            <i class="fa fa-times-circle"></i>&nbsp;Close
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

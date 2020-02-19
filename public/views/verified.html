@@ -1,0 +1,72 @@
+<!-- <div class="row" ng-controller="verifiedCtrl as vc">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <br />
+    <div class="card" >
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-success center">
+              <h4>{{vc.message}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-if="vc.verifiedAccount">
+          <div class="col">
+            <i class="fa fa-lock" style="color: #17a2b8;"></i>
+            <a href="/#!/">Go to Login</a>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div> -->
+<div class="row" ng-controller="verifiedCtrl as vc">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <br />
+    <div class="card" >
+      <!-- <div class="card-header"><h5>Alumni</h5></div> -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+           <form>
+            <div class="form-group login" ng-if="!vc.verifying">
+              <i class="fa fa-key" style="color: #17a2b8;"></i>
+              <label for="password">
+                Password:
+              </label>
+              <input type="text" class="form-control" ng-model="vc.password" required>
+              <i class="fa fa-lock" style="color: #17a2b8;"></i>
+              <label class="top_point3" for="c_password">
+                Confirm Password:
+              </label>
+              <input type="c_password" class="form-control" ng-model="vc.c_password" required>
+            </div>
+            <button class="btn btn-info col-md-12 verdana" ng-click="vc.verifyAndRedirect()" ng-disabled="vc.verifying" style="color: white;border-radius: 20px;">
+              {{ vc.buttonMessage }}
+            </button> 
+          </form>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <br />
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span style="float: right;">&copyCopyright 2019 Alumni</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="col-sm-4"></div>
+  <div class="col-md-12">
+    <h5 class="center">Thank you for confirming your account</h5>
+    <p class="center">Please create password continue...</p>
+  </div>
+</div>

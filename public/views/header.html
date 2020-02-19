@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-sm site-theme navbar-dark top-nav" ng-controller="searchAlumniCtrl as sa">
+  <div class="col-md-2"></div>
+  <div class="col-md-7 padding-left-0" >
+    <form class="form-inline" >
+      <div class="input-group" ng-if="search_header">
+        <div class="input-group-prepend pointer" style="height: 26px;" ng-click="redirectToAccount()">
+          <span class="input-group-text">
+            <i class="fa fa-user site-color"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control" placeholder="Search" ng-model="sa.search_alumni" style="height: 26px; width: 500px;">
+      </div>    
+    </form>
+    <div class="row" style="position: absolute;
+    z-index: 2;
+    left: 3.7em;">
+        <ul class="list-group" >
+          <li class="list-group-item font padding-5" ng-repeat="al in sa.alumni_list" style="border-bottom: solid 1px #d6d6d6; width: 500px;border-radius: 2px !important;">
+            <div class="col">
+            <div class="row">
+              <div style="flex: 0 0 15%;max-width: 20%;">
+                <img src="images/dane.jpg" style="width: 60px;height: 55px;border: 1px solid #d1d5da !important;">
+              </div>
+              <div style="flex: 0 0 85%;max-width: 80%;">
+                <div style="flex: 0 0 100%;max-width: 100%;font-size: 15px;">
+                  <a href="" class="blue" ng-click="sa.viewFellow(al)">
+                    {{al.firstname}}&nbsp;{{al.middlename}}&nbsp;{{al.lastname}}
+                  </a>
+                </div>
+                <div style="flex: 0 0 100%;max-width: 100%;">
+                  <span class="font-11">{{al.course_name}}&nbsp;- {{al.department_name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          </li>
+          <li class="list-group-item font" ng-if="sa.hasNoResults" style="border-bottom: solid 1px #d6d6d6; width: 500px;border-radius: 2px !important;">
+            No Result for {{sa.search_alumni}}
+          </li>
+        </ul>
+    </div>
+  </div>
+  <div class="collapse navbar-collapse col-md-2 arrow" id="collapsibleNavbar" ng-if="search_header">
+    <div class="dropdown">
+      <a class="nav-link dropdown-toggle white" data-toggle="dropdown">
+        <i class="fa fa-user-circle"></i>&nbsp;{{ accountName }}
+      </a>
+      <div class="dropdown-menu" >
+        <a href="#!/account/{{accountName}}" class="dropdown-item arrow" style="color:#2aabc7;">
+          <i class="fa fa-home"></i>&nbsp;Home
+        </a>
+        <a class="dropdown-item" href="" ng-click="logout()" style="color:#2aabc7;">
+          <i class="fa fa-sign-out-alt "></i>&nbsp;Sign Out
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-expand-sm bottom-nav"></nav>

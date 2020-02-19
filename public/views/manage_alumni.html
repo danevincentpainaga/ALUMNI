@@ -1,0 +1,60 @@
+<div class="container-fluid padding-2">
+	<div class="row top_point5">
+		<div class="col">
+	  	<ul class="list-group list-group-flush" style="border: solid 1px #d6d6d6;">
+		  <li class="list-group-item">
+		  	<div class="row">
+		  		<div class="col-md-10 padding-5">
+				    <form class="form-inline" >
+				      <div class="input-group" >
+				        <div class="input-group-prepend" style="height: 27px;">
+				          <span class="input-group-text">
+				            <i class="fa fa-user site-color"></i>
+				          </span>
+				        </div>
+				        <input type="text" class="form-control" placeholder="Fullname" style="height: 27px; width: 500px;" >
+				      </div>    
+				    </form>
+		  		</div>	
+			  	<div class="col-md-2">
+			  		<button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addAlumniModal">
+			  			<i class="fa fa-plus"></i>&nbsp;Add New
+			  		</button>
+			  	</div>
+		  	</div>
+		  </li>
+		  <li class="list-group-item">
+		  	<div class="row">
+		        <div class="col-md-6 padding-2" ng-repeat="alumni in a.alumni_list">
+		           <div class="card">
+		            <div class="card-body padding-7">
+		              <div class="col">
+		              <div class="row">
+		                <div style="flex: 0 0 20%;max-width: 20%;">
+		                  <img ng-src="uploads/{{alumni.photo | checkPhoto}}" style="width: 90px;height: 80px;border: 1px solid #d1d5da !important;">
+		                </div>
+		                <div style="flex: 0 0 80%;max-width: 80%;">
+		                  <div style="flex: 0 0 100%;max-width: 100%;font-size: 15px;padding-top: 10px;">
+		                    <a href="#" class="blue">
+		                    	{{alumni.firstname}}&nbsp;{{alumni.middlename}}&nbsp;{{alumni.lastname}}
+		                    </a>
+		                  </div>
+		                  <div style="flex: 0 0 100%;max-width: 100%;">
+		                    <span class="font-13">{{alumni.course_name}}</span>
+		                  </div>
+		                  <div style="flex: 0 0 100%;max-width: 100%;">
+		                  	<span class="font-13">Section-{{alumni.section}}&nbsp;-&nbsp;{{alumni.year_graduated}}</span>
+		                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateAlumniModal" style="float: right;" ng-click="a.emitAlumniDetailsToUpdate(alumni)">Update</button>
+		                  </div>
+		                </div>
+		              </div>
+		              </div>
+		            </div> 
+		          </div>                                   
+		        </div>		  	
+		  	</div>
+		  </li>
+		</ul>  			
+		</div>
+	</div>
+</div>

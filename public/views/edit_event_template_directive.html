@@ -1,0 +1,78 @@
+ <div class="card">
+  <div class="card-body padding-0">
+    <div class="col" style="margin-top: 1em;">
+      <div class="row">
+        <div style="width: 70px;padding-left: 1em;">
+          <img ng-src="uploads/{{event.photo | checkPhoto}}" class="event-post-profile-pic">
+        </div>  
+        <div class="col-md-10 padding-0">
+          <div class="row">
+            <div class="col-md-12">
+              <span class="blue text-deco-none">
+                {{event.firstname}}&nbsp;{{event.middlename}}&nbsp;{{event.lastname}}
+              </span>
+              <span class="badge float-right" event-status status="{{event.event_status}}">{{event.event_status}}</span>
+            </div>
+            <div class="col-md-12">
+              <span class="font-13">{{event.date_posted}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" style="margin-top: .5em;margin-bottom: 2em;" ng-if="!e.event_editing">
+    <hr>
+    <span class="badge" event-type etype="{{event.event_type}}">{{event.event_type}}</span>
+    <p class="bold font-11 top_1em">{{event.event_datetime | formatedDate}}</p>
+    <p>
+      {{event.event_message}}
+    </p>
+    </div>
+    <div class="col" ng-if="e.event_editing">
+      <form class="top_1em">
+        <div class="form-group bottom_point1">
+          <label for="eventType">Event Type:</label>
+          <select class="custom-select custom-select-sm" ng-model="e.event_type">
+            <option value="Job Opportunities">Job Opportunities</option>
+            <option value="Announcement/Events">Announcement/Events</option>
+          </select>
+        </div>
+        <div class="form-group bottom_point1">
+          <label for="eventDate">Event Date:</label>
+          <input class="form-control form-control-sm"
+               ng-model="e.eventdate"
+               ng-model-options="{ updateOn: 'blur' }"
+               placeholder="Select a date..."
+               moment-picker="m.eventdate" />
+        </div>
+        <div class="form-group bottom_point1">
+          <label for="event_message">Post:</label>
+          <textarea class="form-control form-control-sm" rows="2" id="event_message" name="text" placeholder="Post events here..." ng-model="e.event_message"></textarea>
+        </div>
+        <div class="col padding-0 top_1em">
+          <button type="submit" class="btn btn-info btn-sm" ng-click="e.updateEvent()" ng-disabled="e.updating">
+            <i class="fa fa-save"></i>
+              {{e.update_status}}
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" ng-click="e.cancelEditing()">
+            <i class="fa fa-times-circle"></i>
+              Cancel
+          </button>
+        </div>  
+      </form>
+    </div>
+    <br />
+  </div> 
+  <div class="card-footer padding-5 bg-white" ng-if="!e.event_editing">
+    <div class="row">
+      <div class="col event-btn">
+         <button class="btn btn-light btn-sm float-right" ng-click="e.removeEvent(event)">
+            <i class="fa fa-trash t grey-white"></i>
+        </button>
+         <button class="btn btn-light btn-sm float-right" ng-click="e.editEvent(event)">
+            <i class="fa fa-pen t grey-white"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>  
