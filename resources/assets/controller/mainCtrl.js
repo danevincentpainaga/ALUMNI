@@ -36,6 +36,8 @@ var app = angular.module('myApp')
 	$scope.uploadFile = function(){
 	    apiService.uploadProfilePic($scope.data).then(function(response){
 	     	console.log(response);
+        swalert.successAlert("Upload Successful.");
+        $timeout(function() { $window.location.reload(); }, 500);
 	    }, function(error){
 	      console.log(error);
 	    });

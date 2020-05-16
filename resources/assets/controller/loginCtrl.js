@@ -23,11 +23,11 @@ var app = angular.module('myApp')
       lg.loginBtn = true;
       lg.buttonMessage = 'Signing In...';
       
-      swalert.successInfo("<label><i class='fa fa-spinner fa-spin'></i>&nbsp;Checking Identity...</label>", 'info', );
+      swalert.successInfo("<label><i class='fa fa-spinner fa-spin'></i>&nbsp;Checking Identity...</label>", "info");
       var credentials = {
         email: lg.email,
         password: lg.password
-      }
+      };
 
       apiService.validateLogin(credentials)
         .then(function(response){
@@ -37,8 +37,8 @@ var app = angular.module('myApp')
       }, function(err){
         console.log(err);
         err.data.error === "Unauthorised" ?
-          swalert.successInfo("<label class='red'>Incorrect Username/password!</label>", 'error', ) : 
-          swalert.successInfo("<label class='red'>"+err.data.error+"!</label>", 'error', );
+          swalert.successInfo("<label class='red'>Incorrect Username/password!</label>", 'error' ) : 
+          swalert.successInfo("<label class='red'>"+err.data.error+"!</label>", 'error' );
           lg.buttonMessage = 'Sign In';
           lg.loginBtn = false;
       });

@@ -1,5 +1,5 @@
 <div class="container-fluid padding-2">
-	<div class="row top_point5">
+	<div class="row top_point5" >
 		<div class="col">
 	  	<ul class="list-group list-group-flush" style="border: solid 1px #d6d6d6;">
 		  <li class="list-group-item">
@@ -12,7 +12,7 @@
 				            <i class="fa fa-user site-color"></i>
 				          </span>
 				        </div>
-				        <input type="text" class="form-control" placeholder="Fullname" style="height: 27px; width: 500px;" >
+				        <input type="text" class="form-control" placeholder="search" style="height: 27px; width: 500px;" ng-model="a.search">
 				      </div>    
 				    </form>
 		  		</div>	
@@ -23,9 +23,9 @@
 			  	</div>
 		  	</div>
 		  </li>
-		  <li class="list-group-item">
+		  <li class="list-group-item" style="max-height: 505px; overflow: auto;">
 		  	<div class="row">
-		        <div class="col-md-6 padding-2" ng-repeat="alumni in a.alumni_list">
+		        <div class="col-md-6 padding-2" ng-repeat="alumni in a.alumni_list | filter: a.search">
 		           <div class="card">
 		            <div class="card-body padding-7">
 		              <div class="col">

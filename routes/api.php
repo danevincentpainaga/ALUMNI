@@ -25,6 +25,8 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::post('updatePassword', 'API\UserAccountsController@updatePassword');
 	Route::get('getCourseById/{courseId}', 'API\UserAccountsController@getCourseById');
 	Route::post('addNewAdmin', 'API\AlumniController@addNewAlumni');
+	Route::post('updateAlumniDetails', 'API\AlumniController@updateAlumniDetails');
+	
 
 	// Alumni_admins Api's
 	Route::get('getAlumni', 'API\AlumniController@getAlumni');
@@ -60,7 +62,8 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::get('validateCourse/{courseName}', 'API\CourseController@validateCourse');
 
 	//Departments Api's
-	Route::get('getEmployedUnemployedDepartments', 'API\DepartmentController@getEmployedUnemployedDepartments');
+	Route::get('departments', 'API\DepartmentController@departments');
+	Route::post('getEmployedUnemployedDepartments', 'API\DepartmentController@getEmployedUnemployedDepartments');
 	Route::get('getDepartments/{deptId}', 'API\DepartmentController@getDepartments');
 	Route::post('addDepartment', 'API\DepartmentController@addDepartment');
 	Route::post('updateDepartment', 'API\DepartmentController@updateDepartment');

@@ -6,12 +6,12 @@
 		  	<div class="row">	
 			  	<div class="col-md-8"></div>
 		  		<div class="col-md-4">
-		  			<input type="text" class="form-control form-control-sm">
+		  			<input type="text" class="form-control form-control-sm" ng-model="u.search">
 		  		</div>
 		  	</div>
 		  </li>
-		  <li class="list-group-item padding-0 top_point3" >
-			  <table class="table table-bordered table-hover table-sm">
+		  <li class="list-group-item padding-0 top_point3" style="max-height: 518px;overflow: auto;">
+			  <table class="table table-bordered table-hover table-sm" style="margin-bottom: 2px;">
 			    <thead class="thead-dark">
 			      <tr>
 			      	<th class="center">Student ID NO.</th>
@@ -23,7 +23,7 @@
 			      </tr>
 			    </thead>
 			    <tbody>
-			      <tr ng-repeat="user in u.users_list">
+			      <tr ng-repeat="user in u.users_list | filter: u.search">
 			      	<td class="center">{{ user.student_id_number }}</td>
 		            <td>{{ user.email }}</td>
 		            <td>{{ user.lastname }}&nbsp;{{ user.firstname }}&nbsp;{{ user.middlename }}</td>

@@ -147,6 +147,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
+    updateAlumniDetails: function updateAlumniDetails(alumniDetails) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/updateAlumniDetails',
+        data: alumniDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
     updatePassword: function updatePassword(credentials) {
       return $http({
         method: 'POST',
@@ -409,10 +420,21 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
-    getEmployedUnemployedDepartments: function getEmployedUnemployedDepartments() {
+    getEmployedUnemployedDepartments: function getEmployedUnemployedDepartments(deptId) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/getEmployedUnemployedDepartments',
+        data: deptId,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    departments: function departments() {
       return $http({
         method: 'GET',
-        url: baseUrl + 'api/getEmployedUnemployedDepartments/',
+        url: baseUrl + 'api/departments',
         cache: false,
         headers: {
           "Content-Type": "application/json",

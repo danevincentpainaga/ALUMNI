@@ -18,21 +18,21 @@
             Security
           </a>
         </li>
-        <li class="list-group-item font padding-7">
+<!--         <li class="list-group-item font padding-7">
           <img src="images/add.svg" style="max-width:20px; ">
           &nbsp;
           <a href="#">
             Saved events
           </a>
-        </li>
+        </li> -->
       </ul>
       <ul class="list-group" style="margin-top: 1.5em;">
        <li class="list-group-item font padding-7 side-border whitesmoke">
           <img src="images/friend.svg" style="max-width:20px; ">&nbsp;<span>Co-Department</span>
         </li>
         <li class="list-group-item font padding-7">
-          <div class="row" style="margin-right: 0px !important; margin-left: 0px !important;">
-            <div class="col-md-3 padding-2" style="height: 77px;" ng-repeat="co in t.co_department">
+          <div class="row" style="margin-right: 0px !important; margin-left: 0px !important;" >
+            <div class="col-md-3 padding-2" style="height: 77px;" ng-repeat="co in t.co_department" ng-click="t.viewFellow(co)">
               <img ng-src="uploads/{{co.photo | checkPhoto}}" style="width: 80px; height: 75px;">
               <span class="co-department-pics">{{co.firstname}}</span>
             </div>
@@ -152,7 +152,7 @@
               </p>
               </div>
             </div> 
-            <div class="card-footer padding-5 bg-white">
+<!--             <div class="card-footer padding-5 bg-white">
               <div class="row">
                 <div class="col event-btn">
                   <button class="btn btn-light btn-sm float-right">
@@ -160,7 +160,7 @@
                   </button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>                                   
         </div>
     </div>

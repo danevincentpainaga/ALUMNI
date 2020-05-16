@@ -33,6 +33,7 @@ var app = angular.module('myApp')
     t.viewFellow = function(fellow){
       let fname = fellow.firstname+fellow.middlename+fellow.lastname;
       $state.go("viewed", {'sp' : fname.toLowerCase(), source: fellow.id});
+      console.log(fellow);
     }
 
     t.postEvent = function(){
@@ -114,14 +115,21 @@ var app = angular.module('myApp')
 
     function getCoDepartments(deptId) {
       apiService.getCoDepartments(deptId).then(function(response){
+        console.log(response);
         for(i = 0; i < response.data.length; i++){
           if (response.data[i].firstname.length > 4) {
             t.co_department[i].photo = response.data[i].photo;
             t.co_department[i].firstname = response.data[i].firstname.substr(0, 4)+"...";
+            t.co_department[i].middlename = response.data[i].middlename;
+            t.co_department[i].lastname = response.data[i].lastname;
+            t.co_department[i].id = response.data[i].id;
           }
           else{
             t.co_department[i].photo = response.data[i].photo;
-            t.co_department[i].firstname = response.data[i].firstname;         
+            t.co_department[i].firstname = response.data[i].firstname;
+            t.co_department[i].middlename = response.data[i].middlename;
+            t.co_department[i].lastname = response.data[i].lastname;
+            t.co_department[i].id = response.data[i].id;    
           }
 
         }

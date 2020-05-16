@@ -12,59 +12,54 @@ var app = angular.module('myApp')
     function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService, swalert) {
 
     var db = this;
+    departments();
     getEmployedUnemployedDepartments();
-    // displayDataToGraph();
-
-    function displayDataToGraph() {
-      apiService.getDepartments().then(function(response){
-        // $timeout(function() {
-          db.labels1 = [];
-          angular.forEach(response.data, function(val, i){
-            db.labels1.push(val.department_name);
-          });
-
-          db.series1 = ['Employed', 'Unemployed'];
-          db.data1 = [
-            [500, 300,700],
-            [200, 100,500],
-          ];
-        // }, 1000 );
-      }, function(error){
-        console.log(error);
-      });
-    }
-
-    db.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October","November","December"];
-    db.series = ['Series A'];
-
-    db.data = [
-      [65, 59, 40, 81, 56, 55, 40],
-    ];
 
     db.onClick = function (points, evt) {
       console.log(points, evt);
     };
 
+    db.filterDepartment = function(){
+      getEmployedUnemployedDepartments(db.selectedDepartment.department_id);
+    }
 
-    function getEmployedUnemployedDepartments(){
-      apiService.getEmployedUnemployedDepartments().then(function(response){
+    function departments(){
+      apiService.departments().then(function(response){
         console.log(response);
+        db.departments = response.data;
       }, function(error){
         console.log(error);
       });      
     }
 
-
-    // db.graph = {
-    //   'max-height': $scope.windowHeight+'px'
-    // };
-    // Simulate async data update
-    // $timeout(function () {
-    // db.data = [
-    //   [28, 48, 40, 19, 86, 27, 90],
-    //   [65, 59, 80, 81, 56, 55, 40]
-    // ];
-    // }, 3000);
+    function getEmployedUnemployedDepartments(deptId){
+      apiService.getEmployedUnemployedDepartments(deptId).then(function(response){
+        console.log(response.data.length);
+        if (response.data.length > 0) {
+          db.data = [];
+          db.labels = [];
+          var employed = [];
+          var unemployed = [];
+          angular.forEach(response.data, function(val, i){
+            db.labels.push(val.course_name);
+            employed.push(val.Employed);
+            unemployed.push(val.Unemployed);
+          });
+          db.data.push(employed);
+          db.data.push(unemployed);
+          db.series = ['Employed', 'Unemployed'];
+          console.log("success");
+        }
+        else{
+          db.data = [0];
+          db.labels = ["courses"];
+          db.series = ['Employed', 'Unemployed'];
+          console.log("failed");
+        }
+      }, function(error){
+        console.log(error);
+      });      
+    }
 }]);
 
 app.directive('graph-style', function(){

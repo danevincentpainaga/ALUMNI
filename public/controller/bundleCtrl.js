@@ -594,59 +594,54 @@ var app = angular.module('myApp')
     function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService, swalert) {
 
     var db = this;
+    departments();
     getEmployedUnemployedDepartments();
-    // displayDataToGraph();
-
-    function displayDataToGraph() {
-      apiService.getDepartments().then(function(response){
-        // $timeout(function() {
-          db.labels1 = [];
-          angular.forEach(response.data, function(val, i){
-            db.labels1.push(val.department_name);
-          });
-
-          db.series1 = ['Employed', 'Unemployed'];
-          db.data1 = [
-            [500, 300,700],
-            [200, 100,500],
-          ];
-        // }, 1000 );
-      }, function(error){
-        console.log(error);
-      });
-    }
-
-    db.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October","November","December"];
-    db.series = ['Series A'];
-
-    db.data = [
-      [65, 59, 40, 81, 56, 55, 40],
-    ];
 
     db.onClick = function (points, evt) {
       console.log(points, evt);
     };
 
+    db.filterDepartment = function(){
+      getEmployedUnemployedDepartments(db.selectedDepartment.department_id);
+    }
 
-    function getEmployedUnemployedDepartments(){
-      apiService.getEmployedUnemployedDepartments().then(function(response){
+    function departments(){
+      apiService.departments().then(function(response){
         console.log(response);
+        db.departments = response.data;
       }, function(error){
         console.log(error);
       });      
     }
 
-
-    // db.graph = {
-    //   'max-height': $scope.windowHeight+'px'
-    // };
-    // Simulate async data update
-    // $timeout(function () {
-    // db.data = [
-    //   [28, 48, 40, 19, 86, 27, 90],
-    //   [65, 59, 80, 81, 56, 55, 40]
-    // ];
-    // }, 3000);
+    function getEmployedUnemployedDepartments(deptId){
+      apiService.getEmployedUnemployedDepartments(deptId).then(function(response){
+        console.log(response.data.length);
+        if (response.data.length > 0) {
+          db.data = [];
+          db.labels = [];
+          var employed = [];
+          var unemployed = [];
+          angular.forEach(response.data, function(val, i){
+            db.labels.push(val.course_name);
+            employed.push(val.Employed);
+            unemployed.push(val.Unemployed);
+          });
+          db.data.push(employed);
+          db.data.push(unemployed);
+          db.series = ['Employed', 'Unemployed'];
+          console.log("success");
+        }
+        else{
+          db.data = [0];
+          db.labels = ["courses"];
+          db.series = ['Employed', 'Unemployed'];
+          console.log("failed");
+        }
+      }, function(error){
+        console.log(error);
+      });      
+    }
 }]);
 
 app.directive('graph-style', function(){
@@ -811,11 +806,11 @@ var app = angular.module('myApp')
       lg.loginBtn = true;
       lg.buttonMessage = 'Signing In...';
       
-      swalert.successInfo("<label><i class='fa fa-spinner fa-spin'></i>&nbsp;Checking Identity...</label>", 'info', );
+      swalert.successInfo("<label><i class='fa fa-spinner fa-spin'></i>&nbsp;Checking Identity...</label>", "info");
       var credentials = {
         email: lg.email,
         password: lg.password
-      }
+      };
 
       apiService.validateLogin(credentials)
         .then(function(response){
@@ -825,8 +820,8 @@ var app = angular.module('myApp')
       }, function(err){
         console.log(err);
         err.data.error === "Unauthorised" ?
-          swalert.successInfo("<label class='red'>Incorrect Username/password!</label>", 'error', ) : 
-          swalert.successInfo("<label class='red'>"+err.data.error+"!</label>", 'error', );
+          swalert.successInfo("<label class='red'>Incorrect Username/password!</label>", 'error' ) : 
+          swalert.successInfo("<label class='red'>"+err.data.error+"!</label>", 'error' );
           lg.buttonMessage = 'Sign In';
           lg.loginBtn = false;
       });
@@ -874,6 +869,8 @@ var app = angular.module('myApp')
 	$scope.uploadFile = function(){
 	    apiService.uploadProfilePic($scope.data).then(function(response){
 	     	console.log(response);
+        swalert.successAlert("Upload Successful.");
+        $timeout(function() { $window.location.reload(); }, 500);
 	    }, function(error){
 	      console.log(error);
 	    });
@@ -2003,6 +2000,7 @@ var app = angular.module('myApp')
     t.viewFellow = function(fellow){
       let fname = fellow.firstname+fellow.middlename+fellow.lastname;
       $state.go("viewed", {'sp' : fname.toLowerCase(), source: fellow.id});
+      console.log(fellow);
     }
 
     t.postEvent = function(){
@@ -2084,14 +2082,21 @@ var app = angular.module('myApp')
 
     function getCoDepartments(deptId) {
       apiService.getCoDepartments(deptId).then(function(response){
+        console.log(response);
         for(i = 0; i < response.data.length; i++){
           if (response.data[i].firstname.length > 4) {
             t.co_department[i].photo = response.data[i].photo;
             t.co_department[i].firstname = response.data[i].firstname.substr(0, 4)+"...";
+            t.co_department[i].middlename = response.data[i].middlename;
+            t.co_department[i].lastname = response.data[i].lastname;
+            t.co_department[i].id = response.data[i].id;
           }
           else{
             t.co_department[i].photo = response.data[i].photo;
-            t.co_department[i].firstname = response.data[i].firstname;         
+            t.co_department[i].firstname = response.data[i].firstname;
+            t.co_department[i].middlename = response.data[i].middlename;
+            t.co_department[i].lastname = response.data[i].lastname;
+            t.co_department[i].id = response.data[i].id;    
           }
 
         }
@@ -2193,23 +2198,106 @@ var app = angular.module('myApp')
 
 
     var uc = this;
+
     uc.section_list =["A","B","C","D","E","F","G","H","I", "J", "K", "L", "M", "N", "O", "P"];
 
     $scope.$on('broadcastedAlumniDetailsFromMainCtrl', function(val, obj){
       uc.alumni = obj;
+      app.constant('oldata', obj);
       $q.all([apiService.getCourses(obj.u_departmentId)]).then(function(response){
         uc.courses = response[0].data;
         giveInitialValueToCourse(obj.u_courseId);
         uc.section = obj.section;
         uc.gender = obj.gender;
         console.log(obj);
+        departments("*");
       });
 
     });
 
+    uc.closeModal = function(){
+      alert();
+      console.log(oldata);
+    }
+
+    uc.selectDepartment = function(){
+      courses(uc.selectedDepartment.department_id);
+    }
+
+    uc.updateAlumniDetails = function(){
+      console.log("testing");
+      if (
+            uc.alumni.firstname && uc.alumni.lastname && uc.alumni.middlename 
+            && uc.alumni.contact_no && uc.gender && uc.alumni.birthdate && uc.alumni.address 
+            && uc.alumni.permanent_address && uc.alumni.email && uc.alumni.student_id_number
+            && uc.alumni.year_graduated && uc.selectedDepartment && uc.selectedCourse
+         ) {
+              uc.save_status = "Updating...";
+              let adminDetails = {
+                id: uc.alumni.id,
+                alumni_id: uc.alumni.alumni_id,
+                lastname: uc.alumni.lastname,
+                firstname: uc.alumni.firstname,
+                middlename: uc.alumni.middlename,
+                contact_no: uc.alumni.contact_no,
+                gender: uc.gender,
+                birthdate: uc.alumni.birthdate,
+                address:uc.alumni.address,
+                permanent_address: uc.alumni.permanent_address,
+                email:uc.alumni.email,
+                student_id_number: uc.alumni.student_id_number,
+                u_courseId: uc.selectedCourse.course_id,
+                u_departmentId: uc.selectedDepartment.department_id,
+                year_graduated: uc.alumni.year_graduated,
+                section: uc.section,
+                user_status: 'Activated',
+                user_type: 'admin'
+              };
+              console.log(uc.selectedDepartment.department_id,);
+              updateAlumniDetails(adminDetails);
+            }
+    }
+
+    function updateAlumniDetails(alumniDetails){
+      apiService.updateAlumniDetails(alumniDetails).then(function(response){
+        console.log(response);
+        swalert.successAlert(response.data.message);
+        uc.saving = false;
+        uc.save_status = "Save";
+      }, function(error){
+        console.log(error);
+      });
+    }
+
+    function courses(deptId) {
+      apiService.getCourses(deptId).then(function(response){
+        uc.courses = response.data; 
+        uc.selectedCourse = response.data[0];
+      }, function(error){
+        console.log(error);
+      });
+    }
+
+    function departments(did) {
+      uc.isLoading = true;
+      apiService.getDepartments(did).then(function(response){
+        uc.isLoading = false;
+        uc.departments = response.data;
+        giveInitialValueToDept(response.data);
+      }, function(error){
+        console.log(error);
+      });
+    }
+
     function giveInitialValueToCourse(courseId){
       angular.forEach(uc.courses, function(val, i){
         courseId == val.course_id ? uc.selectedCourse = val : null;
+      });
+    }
+
+    function giveInitialValueToDept(dept){
+      angular.forEach(dept, function(val, i){
+          val.department_id == uc.alumni.u_departmentId ? uc.selectedDepartment = val : null;
       });
     }
 

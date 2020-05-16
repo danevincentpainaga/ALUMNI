@@ -68,37 +68,18 @@
 	  	<ul class="list-group list-group-flush graph-holder-header">
 		  <li class="list-group-item padding-5">
 		  	<div class="row">
-		  		<div class="col-md-8"></div>
+		  		<div class="col-md-10"></div>
 			  	<div class="col-md-2">
 					<form>
-					  <select name="cars" class="custom-select custom-select-sm">
-					    <option selected>Select Status</option>
-					    <option value="volvo">Employed</option>
-					    <option value="fiat">Unemployed</option>
-					  </select>
-					</form>
-			  	</div>	
-			  	<div class="col-md-2">
-					<form>
-					  <select name="cars" class="custom-select custom-select-sm">
-					    <option selected>Select Department</option>
-					    <option value="volvo">Employed</option>
-					    <option value="fiat">Unemployed</option>
-					  </select>
+						<select  class="custom-select custom-select-sm" id="department" name="department" ng-model="db.selectedDepartment" ng-options="department as department.department_name for department in db.departments track by department.department_name " required ng-change="db.filterDepartment()">
+						</select>
 					</form>
 			  	</div>
 		  	</div>
 		  </li>
 		  <li class="list-group-item top_point3" style="box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;">
-		  	<canvas class="chart chart-line" chart-data="db.data" chart-labels="db.labels" chart-series="db.series" chart-click="db.onClick" style="max-height: 400px;"></canvas>
-		  </li>
-		  <li class="list-group-item top_point3" style="box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;">
-		  	<div class="row top_1em">
-		  		<div class="col-md-12">
-		  			<br />
-		  			<canvas class="chart chart-bar" chart-data="db.data1" chart-labels="db.labels1" chart-series="db.series1" chart-click="db.onClick" style="max-height: 400px;"></canvas>
-		  		</div>
-		  	</div>
+		  	<canvas class="chart chart-bar" chart-data="db.data" chart-labels="db.labels" chart-series="db.series" chart-click="db.onClick" style="max-height: 400px;">
+		  	</canvas>
 		  </li>
 		</ul>  			
 		</div>

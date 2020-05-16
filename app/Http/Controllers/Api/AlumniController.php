@@ -35,7 +35,7 @@ class AlumniController extends Controller
                 ->join('alumni_admins', 'alumni_admins.alumni_id', '=', 'users.u_alumniId')
                 ->join('departments', 'users.u_departmentId', '=', 'departments.department_id')
                 ->join('courses', 'users.u_courseId', '=', 'courses.course_id')
-                ->select('alumni_admins.*', 'users.photo', 'courses.*', 'departments.*')
+                ->select('alumni_admins.*', 'users.id', 'users.photo', 'courses.*', 'departments.*')
                 ->limit(8)
                 ->get();
     }
@@ -162,6 +162,32 @@ class AlumniController extends Controller
         $user->user_type = $request->userDetails[0]["user_type"];
     	$user->save();
     	return response()->json(['message'=>'Successful'], 200);
+    }
+
+    public function updateAlumniDetails(Request $request){
+
+        $alumni = alumni_admin::find($request->alumni_id);
+        $alumni->lastname = $request->lastname;
+        $alumni->firstname = $request->firstname;
+        $alumni->middlename = $request->middlename;
+        $alumni->contact_no = $request->contact_no;
+        $alumni->gender = $request->gender;
+        $alumni->birthdate = $request->birthdate;
+        $alumni->address = $request->address;
+        $alumni->permanent_address = $request->permanent_address;
+        $alumni->save();
+
+        $user = User::find($request->id);
+        $user->email = $request->email;
+        $user->student_id_number = $request->student_id_number;
+        $user->u_courseId = $request->u_courseId;
+        $user->u_departmentId = $request->u_departmentId;
+        $user->year_graduated = $request->year_graduated;
+        $user->section = $request->section;
+        $user->user_status = $request->user_status;
+        $user->user_type = $request->user_type;
+        $user->save();
+        return response()->json(['message'=>'Successful'], 200);
     }
 
     public function updateNameAddress(Request $request){

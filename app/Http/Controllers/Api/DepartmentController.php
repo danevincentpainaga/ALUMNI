@@ -9,6 +9,10 @@ use App\department;
 
 class DepartmentController extends Controller
 {
+  public function departments(){
+    return department::all();
+  }
+
   public function getDepartments($did){
     if($did == "*"){
       return department::all();
@@ -16,7 +20,6 @@ class DepartmentController extends Controller
     else{
       return department::find($did)->first();
     }
-    
   }
    
 	public function addDepartment(Request $request){
@@ -45,36 +48,23 @@ class DepartmentController extends Controller
       }
    }
 
-   public function getEmployedUnemployedDepartments(){
-      $variable = ['CCS', 'CEA'];
-      // $arr = [];
-      foreach ($variable as $key => $value) {
-
-        $arr = DB::table('alumni_admins')
-                    // ->where('status', '<>', 1)
-                    ->leftJoin('users', 'alumni_admins.alumni_id', '=', 'users.u_alumniId')
-                    ->leftJoin('departments', 'users.u_departmentId', '=', 'departments.department_id')
-                    ->select('alumni_admins.*', 'users.*', 'departments.department_name')
-                    // ->where('departments.department_id', '=', 'users.u_departmentId')
-                    ->select(DB::raw('count(*) as '.$value.''))
-                    ->whereNotNull('job')
-                    ->where('departments.department_name', '=', $value)
-                    ->get();
-        $arrs[] = $arr;
-
-      }
-
-      return $arrs;
-      // $arr = DB::table('alumni_admins')
-      //             // ->where('status', '<>', 1)
-      //             ->leftJoin('users', 'alumni_admins.alumni_id', '=', 'users.u_alumniId')
-      //             ->leftJoin('departments', 'users.u_departmentId', '=', 'departments.department_id')
-      //             ->select('alumni_admins.*', 'users.*', 'departments.department_name')
-      //             // ->where('departments.department_id', '=', 'users.u_departmentId')
-      //             ->select(DB::raw('count(*) as dept'))
-      //             ->whereNotNull('job')
-      //             ->where('users.u_departmentId', '=', 'CEA')
-      //             ->get();
+   public function getEmployedUnemployedDepartments(Request $request){
+         return DB::select(
+                        "SELECT 
+                        (
+                          SELECT count(a.alumni_id) FROM alumni_admins a
+                          INNER JOIN users u ON u.u_alumniId = a.alumni_id 
+                          INNER JOIN courses ct ON ct.course_id = u.u_courseId
+                          WHERE ct.course_id = c.course_id AND job IS NOT NULL
+                        ) as Employed, 
+                        (
+                          SELECT count(a.alumni_id) FROM alumni_admins a
+                          INNER JOIN users u ON u.u_alumniId = a.alumni_id 
+                          INNER JOIN courses ct ON ct.course_id = u.u_courseId
+                          WHERE ct.course_id = c.course_id AND job IS NULL
+                        ) as Unemployed, 
+                        c.course_id, c.course_name FROM courses as c WHERE c_departmentId = ? AND c.course_name != 'INSTRUCTOR'", [$request[0]]
+                );
    }
 
 }
