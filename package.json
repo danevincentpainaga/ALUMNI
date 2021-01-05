@@ -19,7 +19,7 @@
         "angular-sanitize": "^1.4.0",
         "angular-touch": "^1.4.0",
         "angularjs-datepicker": "2.1.23",
-        "axios": "^0.18",
+        "axios": "^0.21",
         "bootstrap": "^4.1.0",
         "components-font-awesome": "^4.7.0",
         "cross-env": "^5.1",
